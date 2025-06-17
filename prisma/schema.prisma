@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -15,23 +14,71 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstname String
-  surname String
-  email String @unique
-  password String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  surname   String
+  email     String   @unique
+  password  String
 }
 
-model Products {
-  id Int @id @default(autoincrement())
-  enabled Boolean @default(false)
-  name String
-  slug String
-  use_in_menu Boolean @default(false)
-  stock Int? @default(0)
-  description String? 
-  price Float
-  price_with_discount Float
+model Category {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  useInMenu  Boolean  @default(false)
+  products   ProductCategory[]
+}
+
+model Product {
+  id                Int                 @id @default(autoincrement())
+  enabled           Boolean             @default(false)
+  name              String
+  slug              String              @unique
+  useInMenu         Boolean             @default(false)
+  stock             Int                 @default(0)
+  description       String?
+  price             Float
+  priceWithDiscount Float
+  images            ProductImage[]
+  options           ProductOption[]
+  categories        ProductCategory[]
+}
+
+model ProductImage {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  enabled   Boolean  @default(false)
+  path      String
+}
+
+model ProductOption {
+  id        Int      @id @default(autoincrement())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  title     String
+  shape     Shape    @default(SQUARE)
+  radius    Int      @default(0)
+  type      InputType @default(TEXT)
+  values    String
+}
+
+model ProductCategory {
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+
+  @@id([productId, categoryId])
+}
+
+enum Shape {
+  SQUARE
+  CIRCLE
+}
+
+enum InputType {
+  TEXT
+  COLOR
 }
