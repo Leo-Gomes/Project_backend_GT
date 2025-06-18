@@ -1,32 +1,37 @@
 const { listarCategorias, categoriaPorId, inserirCategoria, alterarCategoria, deletarCategoria } = require("../controllers/categoryController");
-
+const authMiddleware = require('../middleware/AuthMiddleware.js')
 const router = require("express").Router();
+
+// router.use(authMiddleware)
 
 //Lista todas as categorias
 router.get('/search',
-    // #swagger.summary = 'Registro de um novo usuário'
-    // #swagger.description = 'Cria um novo usuário no sistema com nome, sobrenome, email e senha válidos'
+    // #swagger.summary = 'Lista de categoria'
+    // #swagger.description = 'Retorna uma lista de categorias'
     listarCategorias);
 
 //Busca categoria por ID
 router.get('/:id',
-    // #swagger.summary = 'Login de usuário'
-    // #swagger.description = 'Autentica um usuário com email e senha. Retorna um token JWT'
-    // #swagger.responses[200] = {description: 'login'}
-    // #swagger.responses[401] = 'Autentica um usuário com email e senha. Retorna um token JWT'
+    // #swagger.summary = 'Busca de categoria por id'
+    // #swagger.description = 'Retorna uma categoria'
     categoriaPorId);
 
 //Cadastro de categoria
-router.post('/', inserirCategoria)
+router.post('/', authMiddleware,
+    // #swagger.summary = 'Registro de uma nova categoria'
+    // #swagger.description = 'Cria uma nova categoria no sistema'
+    inserirCategoria)
 
 //Atualização de categoria
 router.put('/:id',
-    //#swagger.summary = 'Altera as informações de usuário'
+    // #swagger.summary = 'Atualização de categoria'
+    // #swagger.description = 'Altualiza uma categoria já existente com base no id selecionado'
     alterarCategoria);
 
 //Deletar categoria
 router.delete('/:id',
-    //#swagger.summary = 'Deleta o usuário por ID'
+    // #swagger.summary = 'Deleta categoria'
+    // #swagger.description = 'Deleta uma categoria com base no id selecionado'
     deletarCategoria);
 
 module.exports = router;

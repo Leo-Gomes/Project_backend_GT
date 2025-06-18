@@ -1,8 +1,12 @@
 const { listarProdutosService, produtoPorIdService, inserirProdutoService, alterarProdutoService, deletarProdutoService } = require("../services/productService");
 
 async function listarProdutos (req, res) {
+  const { limit, page} = req.query;
+
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
     try {
-        const produtos = await listarProdutosService(req.query);
+        const produtos = await listarProdutosService(pageNumber, limitNumber);
         res.status(200).json(produtos);
     } catch (error) {
         res.status(400).json({ error: error.message });

@@ -4,29 +4,32 @@ const router = require("express").Router();
 
 //Lista todos os produtos
 router.get('/search',
-    // #swagger.summary = 'Registro de um novo usuário'
-    // #swagger.description = 'Cria um novo usuário no sistema com nome, sobrenome, email e senha válidos'
+    // #swagger.summary = 'Lista de produtos'
+    // #swagger.description = 'Retorna uma lista com todos os produtos com uma paginação dinâmica'
     listarProdutos);
 
 //Busca produto por ID
 router.get('/:id',
-    // #swagger.summary = 'Login de usuário'
-    // #swagger.description = 'Autentica um usuário com email e senha. Retorna um token JWT'
-    // #swagger.responses[200] = {description: 'login'}
-    // #swagger.responses[401] = 'Autentica um usuário com email e senha. Retorna um token JWT'
+    // #swagger.summary = 'Busca de produto por id'
+    // #swagger.description = 'Retorna um produto'
     produtoPorId);
 
 //Cadastro de produto
-router.post('/', inserirProduto)
+router.post('/',
+    // #swagger.summary = 'Registro de um novo produto'
+    // #swagger.description = 'Cria um novo produto no sistema'
+    inserirProduto)
 
 //Atualização de produto
 router.put('/:id',
-    //#swagger.summary = 'Altera as informações de usuário'
+    // #swagger.summary = 'Atualização de produto'
+    // #swagger.description = 'Altualiza um produto já existente com base no id selecionado'
     alterarProduto);
 
 //Deletar produto
 router.delete('/:id',
-    //#swagger.summary = 'Deleta o usuário por ID'
+    // #swagger.summary = 'Deleta Produto'
+    // #swagger.description = 'Deleta um produto com base no id selecionado'
     deletarProduto);
 
 module.exports = router;

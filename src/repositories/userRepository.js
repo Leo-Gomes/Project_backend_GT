@@ -1,5 +1,11 @@
 const prisma = require('../config/prisma.js')
 
+function usuarioPorIdRepository(id) {
+    return prisma.user.findUnique({
+        where: { id }
+    });
+}
+
 function criarUsuario(data) {
 
     return prisma.user.create({ data })
@@ -48,5 +54,5 @@ async function deletarUsuarioRepository(id) {
 }
 
 module.exports = {
-    criarUsuario, encontrarUsuario, alterarUsuarioRepository, deletarUsuarioRepository
+    criarUsuario, encontrarUsuario, alterarUsuarioRepository, deletarUsuarioRepository, usuarioPorIdRepository
 }
