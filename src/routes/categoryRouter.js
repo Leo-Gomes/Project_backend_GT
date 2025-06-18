@@ -23,13 +23,13 @@ router.post('/', authMiddleware,
     inserirCategoria)
 
 //Atualização de categoria
-router.put('/:id',
+router.put('/:id', authMiddleware,
     // #swagger.summary = 'Atualização de categoria'
     // #swagger.description = 'Altualiza uma categoria já existente com base no id selecionado'
     alterarCategoria);
 
 //Deletar categoria
-router.delete('/:id',
+router.delete('/:id',authMiddleware, 
     // #swagger.summary = 'Deleta categoria'
     // #swagger.description = 'Deleta uma categoria com base no id selecionado'
     deletarCategoria);

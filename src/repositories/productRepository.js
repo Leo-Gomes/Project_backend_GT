@@ -73,52 +73,51 @@ const listarProdutosRepository = async (page, limit) => {
     const existingProduct = await prisma.product.findUnique({ where: { id } });
     if (!existingProduct) return null;
   
+    // Atualiza os dados principais do produto (sem o id!)
     await prisma.product.update({
       where: { id },
       data: {
         ...productData,
-        categories: {
-          deleteMany: {},
-          create: category_ids.map((catId) => ({ category_id: catId })),
-        },
+      
       },
     });
   
-    for (const image of images) {
-      if (image.deleted) {
-        await prisma.productImage.delete({ where: { id: image.id } });
-      } else if (image.id) {
-        await prisma.productImage.update({
-          where: { id: image.id },
-          data: { content: image.content },
-        });
-      } else {
-        await prisma.productImage.create({
-          data: { content: image.content, type: image.type, product_id: id },
-        });
-      }
+    // Atualiza categorias (relação N:N)
+    await prisma.productCategory.deleteMany({ where: { productId: id } });
+    if (category_ids.length > 0) {
+      await prisma.productCategory.createMany({
+        data: category_ids.map((categoryId) => ({
+          productId: id,
+          categoryId: categoryId,
+        })),
+      });
     }
   
-    for (const opt of options) {
-      if (opt.deleted) {
-        await prisma.productOption.delete({ where: { id: opt.id } });
-      } else if (opt.id) {
-        await prisma.productOption.update({
-          where: { id: opt.id },
-          data: {
-            ...opt,
-            value: opt.value || opt.values,
-          },
-        });
-      } else {
-        await prisma.productOption.create({
-          data: {
-            ...opt,
-            value: opt.value || opt.values,
-            product_id: id,
-          },
-        });
-      }
+    // Atualiza imagens
+    await prisma.productImage.deleteMany({ where: { productId: id } });
+    if (images.length > 0) {
+      await prisma.productImage.createMany({
+        data: images.map((img) => ({
+          productId: id,
+          path: img.path,
+          enabled: img.enabled ?? false,
+        })),
+      });
+    }
+  
+    // Atualiza opções
+    await prisma.productOption.deleteMany({ where: { productId: id } });
+    if (options.length > 0) {
+      await prisma.productOption.createMany({
+        data: options.map((opt) => ({
+          productId: id,
+          title: opt.title,
+          shape: opt.shape,
+          radius: opt.radius ?? 0,
+          type: opt.type,
+          values: JSON.stringify(opt.value),
+        })),
+      });
     }
   
     return true;
