@@ -1,4 +1,5 @@
 const { listarProdutos, produtoPorId, alterarProduto, deletarProduto, inserirProduto } = require("../controllers/productController");
+const authMiddleware = require('../middleware/AuthMiddleware.js')
 
 const router = require("express").Router();
 
@@ -15,19 +16,19 @@ router.get('/:id',
     produtoPorId);
 
 //Cadastro de produto
-router.post('/',
+router.post('/',authMiddleware,
     // #swagger.summary = 'Registro de um novo produto'
     // #swagger.description = 'Cria um novo produto no sistema'
     inserirProduto)
 
 //Atualização de produto
-router.put('/:id',
+router.put('/:id',authMiddleware,
     // #swagger.summary = 'Atualização de produto'
     // #swagger.description = 'Altualiza um produto já existente com base no id selecionado'
     alterarProduto);
 
 //Deletar produto
-router.delete('/:id',
+router.delete('/:id',authMiddleware,
     // #swagger.summary = 'Deleta Produto'
     // #swagger.description = 'Deleta um produto com base no id selecionado'
     deletarProduto);

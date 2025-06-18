@@ -2,7 +2,12 @@ const prisma = require('../config/prisma.js')
 
 function usuarioPorIdRepository(id) {
     return prisma.user.findUnique({
-        where: { id }
+        where: { id },
+        select: {
+            firstname: true,
+            surname: true,
+            email: true
+        },
     });
 }
 
