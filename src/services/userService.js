@@ -1,9 +1,13 @@
-const {criarUsuario, encontrarUsuario, alterarUsuarioRepository, deletarUsuarioRepository} = require('../repositories/userRepository')
+const {criarUsuario, encontrarUsuario, alterarUsuarioRepository, deletarUsuarioRepository, usuarioPorIdRepository} = require('../repositories/userRepository')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
 const SECRET = process.env.JWT_SECRET;
+
+function usuarioPorIdService(id) {
+    return usuarioPorIdRepository(id);
+}
 
 async function registrarUsuario(firstname, surname, email, password) {
     const usuarioExiste = await encontrarUsuario(email)
@@ -62,5 +66,5 @@ async function deletarUsuarioService(id) {
 }
 
 module.exports = {
-    registrarUsuario, loginUsuario, alterarUsuarioService, deletarUsuarioService
+    registrarUsuario, loginUsuario, alterarUsuarioService, deletarUsuarioService, usuarioPorIdService
 }

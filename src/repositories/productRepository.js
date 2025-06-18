@@ -1,33 +1,19 @@
 const prisma = require("../config/prisma");
 
-const listarProdutosRepository = async (query) => {
-    const {
-      limit = 12,
-      page = 1,
-    } = query;
-  
-    const take = Number(limit);
-    const skip = (page - 1) * take;
-  
-    const [total, data] = await Promise.all([
-      prisma.product.findMany({
+const listarProdutosRepository = async (page, limit) => {
+   
+     return  await prisma.product.findMany({
      
-        skip: limit == -1 ? undefined : skip,
-        take: limit == -1 ? undefined : take,
+      skip: (page - 1) * limit,
+      take: limit,
         include: {
           images: true,
           options: true,
           categories: true,
         },
-      }),
-    ]);
+      })
+
   
-    return {
-      data,
-      total,
-      limit: Number(limit),
-      page: Number(page),
-    };
   };
   
   const produtoPorIdRepository = async (id) => {

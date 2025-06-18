@@ -1,20 +1,12 @@
-const { buscarCategorias, buscarCategoriaPorId, inserirCategoriaRepository, alterarCategoriaRepository, deletarCategoriaRepository } = require("../repositories/categoryRepository");
+const { listarCategorias, categoriaPorId, inserirCategoriaRepository, alterarCategoriaRepository, deletarCategoriaRepository } = require("../repositories/categoryRepository");
 
-async function listarCategoriasService({ limit, page, fields, use_in_menu }) {
-    const categorias = await buscarCategorias({ limit, page, fields, use_in_menu });
-    const total = categorias.total;
-    const data = categorias.data;
-
-    return {
-        data,
-        total,
-        limit: Number(limit),
-        page: Number(page)
-    };
+async function listarCategoriasService( pageNumber, limitNumber) {
+    return await listarCategorias(pageNumber, limitNumber);
+   
 }
 
 function categoriaPorIdService(id) {
-    return buscarCategoriaPorId(id);
+    return categoriaPorId(id);
 }
 
 function inserirCategoriaService(name, slug, useInMenu = false) {

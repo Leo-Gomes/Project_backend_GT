@@ -1,7 +1,7 @@
-const { produtoPorIdRepository, inserirProdutoRepository, alterarProdutoRepository, deletarProdutoRepository } = require("../repositories/productRepository");
+const { produtoPorIdRepository, inserirProdutoRepository, alterarProdutoRepository, deletarProdutoRepository, listarProdutosRepository } = require("../repositories/productRepository");
 
-async function listarProdutosService(query) {
-    return await listarProdutosRepository(query);
+async function listarProdutosService(pageNumber, limitNumber) {
+    return await listarProdutosRepository(pageNumber, limitNumber);
   };
 
   async function produtoPorIdService(id) {

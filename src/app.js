@@ -4,8 +4,8 @@ const categoryRouter = require('./routes/categoryRouter.js')
 const productRouter = require('./routes/productRouter.js')
 
 const app = express();
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerFile = require('./swagger-output.json');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('../swagger-output.json');
 const cors = require('cors')
 
 app.use(cors({
@@ -13,7 +13,7 @@ app.use(cors({
 }))
 
 app.use(express.json());
-// app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get('/', (req, res) => {
 
@@ -24,10 +24,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/v1/product', 
-  // #swagger.tags = ['carrinho']
+  // #swagger.tags = ['produto']
   productRouter);
 app.use('/v1/category', 
-  // #swagger.tags = ['carrinho-item']
+  // #swagger.tags = ['categoria']
   categoryRouter);
 app.use('/v1/user', 
   // #swagger.tags = ['usuario']

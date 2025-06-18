@@ -1,6 +1,11 @@
-const { registrar, login, alterarUsuario, deletarUsuario } = require("../controllers/userController");
+const { registrar, login, alterarUsuario, deletarUsuario, usuarioPorId } = require("../controllers/userController");
 
 const router = require("express").Router();
+
+router.get('/:id',
+    // #swagger.summary = 'Busca de usuário por id'
+    // #swagger.description = 'Retorna um usuário'
+    usuarioPorId);
 
 router.post('/register', 
     // #swagger.summary = 'Registro de um novo usuário'
@@ -19,7 +24,8 @@ router.post('/login',
     alterarUsuario);
 
     router.delete('/:id', 
-    //#swagger.summary = 'Deleta o usuário por ID'
+    // #swagger.summary = 'Deleta usuário'
+    // #swagger.description = 'Deleta um usuário com base no id selecionado'
     deletarUsuario);
 
 module.exports = router;

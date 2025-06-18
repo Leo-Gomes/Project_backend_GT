@@ -1,10 +1,13 @@
 const { listarCategoriasService, categoriaPorIdService, inserirCategoriaService, alterarCategoriaService, deletarCategoriaService } = require("../services/categoryService");
 
 async function listarCategorias(req, res) {
-    const { limit = 12, page = 1, fields, useInMenu } = req.query;
+    const { limit, page} = req.query;
+
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
 
     try {
-        const result = await listarCategoriasService({ limit, page, fields, useInMenu });
+        const result = await listarCategoriasService( pageNumber, limitNumber );
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json({ error: error.message });

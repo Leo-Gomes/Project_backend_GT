@@ -1,28 +1,15 @@
 const prisma = require('../config/prisma')
 
-async function buscarCategorias({ limit, page, fields, use_in_menu }) {
-    const take = Number(limit) === -1 ? undefined : Number(limit);
-    const skip = take ? (Number(page) - 1) * take : undefined;
+async function listarCategorias(page, limit) {
+        return prisma.category.findMany({
+            skip: (page - 1) * limit,
+            take: limit,
+            where: {useInMenu: true}
+        })
 
-    const where = use_in_menu !== undefined ? { use_in_menu: use_in_menu === 'true' } : {};
-    const select = fields
-        ? fields.split(',').reduce((acc, curr) => ({ ...acc, [curr]: true }), { id: true })
-        : undefined;
-
-    const [data, total] = await Promise.all([
-        prisma.category.findMany({
-            where,
-            take,
-            skip,
-            select
-        }),
-        prisma.category.count({ where })
-    ]);
-
-    return { data, total };
 }
 
-function buscarCategoriaPorId(id) {
+function categoriaPorId(id) {
     return prisma.category.findUnique({
         where: { id }
     });
@@ -57,5 +44,5 @@ async function deletarCategoriaRepository(id) {
 }
 
 module.exports = {
-    buscarCategorias, buscarCategoriaPorId, inserirCategoriaRepository, alterarCategoriaRepository, deletarCategoriaRepository
+    listarCategorias, categoriaPorId, inserirCategoriaRepository, alterarCategoriaRepository, deletarCategoriaRepository
 }

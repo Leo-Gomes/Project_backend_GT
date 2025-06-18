@@ -1,4 +1,16 @@
-const {registrarUsuario, loginUsuario, alterarUsuarioService, deletarUsuarioService} = require('../services/userService')
+const {registrarUsuario, loginUsuario, alterarUsuarioService, deletarUsuarioService, usuarioPorIdService} = require('../services/userService')
+
+async function usuarioPorId(req, res) {
+    const {id} = req.params;
+    try {
+        const user = await usuarioPorIdService(Number(id));
+        if (!user) return res.status(404).json({ error: 'Usuario não encontrado' });
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
 
 async function registrar(req, res) {
     const {firstname, surname, email, password} = req.body
@@ -57,6 +69,6 @@ const deletarUsuario = async (req, res) => {
 }
 
 module.exports = {
-    registrar, login, alterarUsuario, deletarUsuario
+    registrar, login, alterarUsuario, deletarUsuario, usuarioPorId
     
 }
