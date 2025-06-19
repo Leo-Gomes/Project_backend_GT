@@ -4,7 +4,7 @@ const doc = {
     info: {
         version: "1.0.0",
         title: "API Node.js com express",
-        description: "Some description..."
+        description: "API RESTful desenvolvida com Node.js, Express, Prisma e PostgreSQL, oferecendo endpoints seguros com autenticação JWT"
     },
     servers: [
         {

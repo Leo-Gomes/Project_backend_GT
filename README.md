@@ -1,180 +1,149 @@
-##🚀 Projeto API REST com Node.js, Express e PostgreSQL (PgAdmin 4)
+# 🧩 Projeto Backend - API REST com Node.js, Express e PostgreSQL
+
+Este projeto é o trabalho final da parte de backend do curso de Fullstack da Digital College. Desenvolvemos uma API RESTful para gerenciamento de usuários, categorias e produtos, utilizando autenticação JWT e banco de dados relacional com PostgreSQL via Prisma ORM.
+
+---
+
+## 🚀 Link do Projeto
+
+A API está hospedada em:  
+🔗 [https://project-backend-gt.onrender.com](https://project-backend-gt.onrender.com)
+
+A documentação Swagger está disponível diretamente ao acessar esse link pelo navegador.
+
+![alt text](image-1.png)
+
+---
+
+## 🧑‍💻 Equipe de Desenvolvimento
+
+- Leonardo  
+- Thais  
+- Enyd  
+- Luanny
+
+---
+
+## 📁 Estrutura de Diretórios
 
 
-#🎯 O que vamos fazer?
+```
+📦 src
+├── 📂 __tests__         # Testes automatizados com JEST
+├── 📂 config            # Configurações gerais do projeto
+├── 📂 controllers       # Lógica das rotas (camada de controle)
+├── 📂 middleware        # Middlewares como autenticação JWT
+├── 📂 repositories      # Comunicação com o banco de dados via Prisma
+├── 📂 routes            # Definição das rotas da API
+├── 📂 services          # Lógica de negócio (camada de serviço)
+├── app.js              # Instancia o app Express
+└── server.js           # Inicializa o servidor
+```
 
-Criar uma API, usando Node.js no backend e PostgreSQL como banco de dados que será gerenciado pelo PgAdmin 4 e usar o Prisma como nosso ORM.
+---
 
+## 🛠️ Tecnologias Utilizadas
 
-#🧰 Tecnologias que vamos usar:
+- **Node.js** – Executar JavaScript no backend  
+- **Express.js** – Framework para rotas e middleware  
+- **Dotenv** – Variáveis de ambiente seguras  
+- **Nodemon** – Atualização automática no desenvolvimento  
+- **PostgreSQL** – Banco de dados relacional  
+- **Prisma ORM** – Mapeamento objeto-relacional  
+- **JWT** – Autenticação via tokens  
+- **JEST** – Testes automatizados
 
-🟢 Node.js → Para rodar JavaScript no servidor.
+---
 
-🚏 Express.js → Criar as rotas da API.
+## ✅ Códigos de Status (HTTP)
 
-🔐 Dotenv → Esconder senhas e configurações sensíveis.
+- `200 OK` – Requisição realizada com sucesso (resposta com conteúdo)  
+- `201 CREATED` – Recurso criado com sucesso  
+- `204 No Content` – Sucesso, mas sem corpo de resposta (ex: DELETE)  
+- `400 Bad Request` – Erro na requisição do cliente  
+- `401 Unauthorized` – Falta de autenticação válida  
+- `404 Not Found` – Recurso não encontrado
 
-🔄 Nodemon → Pra não precisar ficar reiniciando o servidor toda hora.
+---
 
-🐘 PostgreSQL + PgAdmin 4 → Onde ficam dados.
+## 📚 Escopo e Funcionalidades
 
-✨ Prisma → Para facilitar a comunicação com o banco de dados.
+### 🔖 Seção 01 – Banco de Dados
 
-🛡️ JWT (JSON Web Token) → Para proteger as rotas com autenticação.
+- [x] Criar tabela de **usuários**  
+- [x] Criar tabela de **categorias**  
+- [x] Criar tabela de **produtos**  
+- [x] Criar tabela de **imagens de produtos**  
+- [x] Criar tabela de **opções de produtos**  
+- [x] Criar tabela relacional entre **produtos e categorias**
 
-🧪 Jest → Para garantir que tudo está funcionando com testes.
+---
 
+### 👥 Seção 02 – CRUD de Usuários
 
-#📂 Estrutura básica do projeto:
+- [x] GET - Obter usuário por ID  
+- [x] POST - Cadastrar usuário  
+- [x] PUT - Atualizar usuário  
+- [x] DELETE - Deletar usuário  
 
-bash
-Copiar
-Editar
+---
 
-project-root/
-├── src/
-│   ├── __tests__/         
-│   ├── config/         
-│   ├── controllers/    
-│   ├── middleware/     
-│   ├── repositories/         
-│   ├── routes/        
-│   ├── services/       
-│   ├── app.js          
-│   └── server.js                  
-├── .env                
-├── .gitignore          
-└── package.json  
+### 🏷️ Seção 03 – CRUD de Categorias
 
+- [x] GET - Listar todas as categorias  
+- [x] GET - Obter categoria por ID  
+- [x] POST - Cadastrar nova categoria  
+- [x] PUT - Atualizar categoria existente  
+- [x] DELETE - Remover categoria  
 
+---
 
-#✅ Códigos de resposta da API (status HTTP):
+### 📦 Seção 04 – CRUD de Produtos
 
-Código	Nome	O que significa?
+- [x] GET - Listar todos os produtos  
+- [x] GET - Obter produto por ID  
+- [x] POST - Criar novo produto  
+- [x] PUT - Atualizar produto existente  
+- [x] DELETE - Remover produto  
 
-200	OK	Tudo certo! Requisição bem-sucedida ✅
-201	Created	Algo foi criado com sucesso 🎉
-204	No Content	Operação feita, mas sem nada pra devolver 🚫📦
-400	Bad Request	Algo de errado veio na sua requisição 🙈
-401	Unauthorized	Faltou autenticação! Faça login primeiro 🔒
-404	Not Found	O que você pediu não existe 😢
+---
 
+### 🔐 Seção 05 – Autenticação JWT
 
+- [x] POST - Gerar token JWT (login)  
+- [x] Validar token nas rotas `POST`, `PUT` e `DELETE`
 
-#🏃‍♂️ Como rodar o projeto:
+---
 
-Instale as dependências:
+## ▶️ Como Rodar Localmente
 
-bash
-Copiar
-Editar
-npm install
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   ```
 
-Rode o servidor com Nodemon:
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
-bash
-Copiar
-Editar
-npm run dev
+3. Configure o arquivo `.env` com as variáveis de ambiente.
 
+4. Rode a aplicação:
+   ```bash
+   npm run dev
+   ```
 
+5. Acesse: `http://localhost:3000`
 
-#🐘 Configurando o PostgreSQL com Prisma
+---
 
-👉 Instalação do Prisma:
+## 🧪 Testes
 
-bash
-Copiar
-Editar
-npm install prisma --save-dev
-npm install @prisma/client
+Todos os testes foram implementados utilizando a biblioteca **Jest**, garantindo a integridade e estabilidade das rotas e regras de negócio.
 
-Depois:
+---
 
-bash
-Copiar
-Editar
-npx prisma init
+## 📜 Licença
 
-👉 Exemplo de .env:
-
-env
-Copiar
-Editar
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
-(Só trocar usuario, senha e nome_do_banco pelos seus dados reais)
-
-👉 Exemplo de schema.prisma:
-
-prisma
-Copiar
-Editar
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-👉 Rodando as migrações:
-
-bash
-Copiar
-Editar
-npx prisma migrate dev --name init
-
-👉 Exemplo de uso do Prisma Client:
-
-Conexão com o banco:
-
-js
-Copiar
-Editar
-// src/config/prisma.js
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
-export default prisma;
-
-
-
-
-Criando um usuário:
-
-js
-Copiar
-Editar
-// src/controllers/UserController.js
-import prisma from '../config/prisma.js';
-
-export const createUser = async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const user = await prisma.user.create({
-      data: { name, email, password },
-    });
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ error: 'Erro ao criar usuário.' });
-  }
-};
-
-
-
-
-
-
-
-
-
-
+Este projeto é de uso educacional, desenvolvido para fins de aprendizado.

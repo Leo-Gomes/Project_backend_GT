@@ -23,13 +23,13 @@ async function listarProdutosService(pageNumber, limitNumber) {
 };
 
 async function deletarProdutoService(id) {
-    await deletarProdutoRepository(Number(id));
+    const result = await deletarProdutoRepository(Number(id));
     if (!result) {
       const error = new Error("Produto não encontrado");
       error.status = 404;
       throw error;
     }
-   
+   return result;
 };
 
 module.exports = {
