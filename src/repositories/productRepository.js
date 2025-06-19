@@ -74,7 +74,7 @@ const listarProdutosRepository = async (page, limit) => {
     if (!existingProduct) return null;
   
     // Atualiza os dados principais do produto (sem o id!)
-    await prisma.product.update({
+    const result = await prisma.product.update({
       where: { id },
       data: {
         ...productData,
@@ -120,13 +120,13 @@ const listarProdutosRepository = async (page, limit) => {
       });
     }
   
-    return true;
+    return result;
   };
   
   const deletarProdutoRepository = async (id) => {
     try {
-      await prisma.product.delete({ where: { id } });
-      return true;
+      const product = await prisma.product.delete({ where: { id } });
+      return product;
     } catch (error) {
       if (error.code === 'P2025') return false;
       throw error;

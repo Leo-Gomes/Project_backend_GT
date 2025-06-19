@@ -46,7 +46,12 @@ async function alterarUsuarioRepository(id, firstname, surname, email) {
 async function deletarUsuarioRepository(id) {
     try {
         const user = await prisma.user.delete({
-            where: {id: Number(id)}
+            where: {id: Number(id)},
+            select: {
+                firstname: true,
+                surname: true,
+                email: true
+            },
         })
     return user
    } catch (error) {

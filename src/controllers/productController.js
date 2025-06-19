@@ -34,8 +34,8 @@ async function inserirProduto(req, res) {
 
 async function alterarProduto(req, res) {
     try {
-      await alterarProdutoService(req.params.id, req.body);
-      res.status(204).send();
+      const result = await alterarProdutoService(req.params.id, req.body);
+      res.status(200).json(result);
     } catch (error) {
       res.status(error.status || 400).json({ error: error.message });
     }
@@ -43,8 +43,8 @@ async function alterarProduto(req, res) {
 
 async function deletarProduto(req, res) {
     try {
-      await deletarProdutoService(req.params.id);
-      res.status(204).send();
+      result = await deletarProdutoService(req.params.id);
+      res.status(200).json(result);
     } catch (error) {
       res.status(error.status || 400).json({ error: error.message });
     }
